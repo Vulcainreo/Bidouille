@@ -12,16 +12,16 @@
 
 //declare variables for the motor pins
 int motorPin1 = 8;	// Blue   - 28BYJ48 pin 1
-int motorPin2 = 9;	// Pink   - 28BYJ48 pin 2
-int motorPin3 = 10;	// Yellow - 28BYJ48 pin 3
-int motorPin4 = 11;	// Orange - 28BYJ48 pin 4
-                        // Red    - 28BYJ48 pin 5 (VCC)
+int motorPin2 = 7;	// Pink   - 28BYJ48 pin 2
+int motorPin3 = 6;	// Yellow - 28BYJ48 pin 3
+int motorPin4 = 5;	// Orange - 28BYJ48 pin 4
 
 int motorSpeed = 2200;  //variable to set stepper speed
 int count = 0;          // count of steps made
 int countsperrev = 512; // number of steps per full revolution
 int lookup[8] = {B01000, B01100, B00100, B00110, B00010, B00011, B00001, B01001};
-SoftwareSerial BT(6, 7); 
+SoftwareSerial BT(9, 10); 
+int bluetoothKey = 11;
 
 //////////////////////////////////////////////////////////////////////////////
 void setup() {
