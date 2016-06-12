@@ -1,0 +1,172 @@
+title: Fun avec une application embarquée
+author:
+  name: Vulcainreo (Arnaud Courty)
+  twitter: vulcainreo
+  url: http://blog.vulcainreo.com
+output: final.html
+controls: true
+theme: sjaakvandenberg/cleaver-dark
+
+--
+
+# Développement sécurisé
+## Retour d'expérience du hack d'une application embarquée
+
+<style type="text/css">#slide-1{background:#222 url(capture/background1.jpeg) center no-repeat; background-size:cover;}</style>
+--
+
+### Objectif de la présentation
+* Identifier les vulnérabilités
+* Exploiter les vulnérabilités
+* Comprendre l'intégration de la sécurité dans les projets
+
+--
+
+### Présentation de l'application
+
+<div class="right">
+	<img src="capture/interactArduino.png" style="width: 50%; padding-top: 50px;"/>
+</div>
+
+ * Carte Arduino UNO avec puce Atmega328p
+ * Interactions au travers de la liaison USB
+
+Si le mot de passe est bon **ou pas**, il est possible de jouer avec la diode
+--
+
+### Repérage
+Partons en quete de vulnérabilité. 
+
+Voici des questions à se poser avant le départ : 
+* Existe-t-il un port de debug ?
+* Le processus de validation des données utilisateur est-il robuste ?
+* Des fonctions dangeureuses sont-elles implémentées ?
+* Le code de l'application est-il obfusqué ?
+
+--
+
+### Un port de debug ?
+La chasse aux signaux est ouverte.
+
+Votre arme : un analyseur logique
+
+Identification d'un port debug sur le PIN 11
+
+![Identification du port debug sur le pin 11](capture/analyserLogicPortDebug.png)
+
+--
+
+### Un port de debug ?
+Connectons nous :)
+
+<div class="right">
+<img src="capture/capturDebug1.png"/>
+</div>
+
+<code>cu -l /dev/ttyUSB0 -s 9600</code>
+
+Ecouter, c'est gagné :)
+--
+ 
+### Un port de debug ?
+Contre mesures
+
+* Implémenter une variable "dev/prod"
+* A chaque message de debug implémenter une condition sur l'environnement
+
+```
+if ($env == "dev")
+{
+   print(trace)
+}
+```
+
+--
+
+### Faiblesse de vérification du mot de passe
+Bruteforcer pour mieux rentrer.
+
+Votre arme : un fuzzer
+
+D'après nos informations, le mot de passe fait 8 caractères.
+Est-il nécessaire de tester l'ensemble des possibilités ?
+
+--
+
+### Faiblesse de vérification du mot de passe
+Analysons le code source
+
+```
+boolean compareCharArray(char a[8], String b) {
+  boolean result = false;
+  String str(b);
+  for (int s=0; s < 8; s++) {
+     if (a[s] == b[s]) {
+     result = true;
+     }
+     else {
+        result = false;
+     }
+  }
+  return result;
+} 
+```
+
+Ne tester que le dernier, le tour est joué :)
+
+--
+
+### Faiblesse de vérification du mot de passe
+Contre-mesures
+
+Ne pas valider un mot de passe si l'ensemble des vérifications ne sont pas au vert
+
+```
+while (result == true) {
+  if (bitChaineA != bitChaineB) {
+     return false
+}
+return result
+```
+
+--
+
+### Buffer Overflow du mot de passe
+Faire crasher peut bien renseigner
+
+Votre arme : un fuzzer
+
+--
+
+### Buffer Overflow du mot de passe
+Sur arduino aucun controle de dépassement mémoire n'est présent
+
+Principe
+* Définition d'un tableau de 5 entrées
+* L'accès à la 2eme case retourne la valeur mémoire => 2eme case du tableau
+* L'accès à la 6eme case retourne une valeur mémoire non matrisée
+* Après itération, il est possible de cartographier la mémoire
+
+-- 
+
+### Buffer Overflow du mot de passe
+Si la chaine de caractère est trop longue, la mémoire est affichée sur le port de debug
+<div class="left">
+Affichage de la mémoire
+<img src="capture/capturDebug2.png"/>
+</div>
+<div class="right">
+Code source
+<img src="capture/capturDebug3.png"/>
+</div>
+--
+
+# Demo
+
+--
+
+### Conclusion
+Règle à retenir
+* Tout secret, bien caché, peut etre découvert
+* Ne pas limiter l'utilisateur et ses données peut nuire au fonctionnement
+* Limiter au maximum la divulgation d'information
