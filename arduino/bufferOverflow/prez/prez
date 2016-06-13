@@ -56,6 +56,10 @@ Identification d'un port debug sur le PIN 11
 
 --
 
+# Demo
+
+--
+
 ### Un port de debug ?
 Connectons nous :)
 
@@ -67,7 +71,10 @@ Connectons nous :)
 
 Ecouter, c'est gagné :)
 --
- 
+
+# Demo
+
+-- 
 ### Un port de debug ?
 Contre mesures
 
@@ -83,6 +90,23 @@ if ($env == "dev")
 
 --
 
+### Extraction du code source
+Se connecter, c'est tout récupérer
+
+Votre arme: une liaison série et AVR
+
+```
+avrdude -F -v -patmega328p -carduino -P/dev/ttyACM0 -b115200 -D -Uflash:r:program.bin:r
+```
+
+![](capture/getPwdFromCode.png)
+
+--
+
+# Demo
+
+--
+
 ### Faiblesse de vérification du mot de passe
 Bruteforcer pour mieux rentrer.
 
@@ -90,6 +114,10 @@ Votre arme : un fuzzer
 
 D'après nos informations, le mot de passe fait 8 caractères.
 Est-il nécessaire de tester l'ensemble des possibilités ?
+
+--
+
+# Demo
 
 --
 

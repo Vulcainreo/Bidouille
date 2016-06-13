@@ -696,6 +696,10 @@ pre .xml .cdata {
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
     <section class="slide-content"><h3 id="un-port-de-debug-">Un port de debug ?</h3>
 <p>Connectons nous :)</p>
 <div class="right">
@@ -706,7 +710,11 @@ pre .xml .cdata {
 <p>Ecouter, c&#39;est gagné :)</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-7">
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden  " id="slide-9">
     <section class="slide-content"><h3 id="un-port-de-debug-">Un port de debug ?</h3>
 <p>Contre mesures</p>
 <ul>
@@ -719,7 +727,19 @@ pre .xml .cdata {
 }</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-8">
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="extraction-du-code-source">Extraction du code source</h3>
+<p>Se connecter, c&#39;est tout récupérer</p>
+<p>Votre arme: une liaison série et AVR</p>
+<pre><code>avrdude -F -v -patmega328p -carduino -P/dev/ttyACM0 -b115200 -D -Uflash:r:program.bin:r</code></pre>
+<p><img src="capture/getPwdFromCode.png" alt=""></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
     <section class="slide-content"><h3 id="faiblesse-de-v-rification-du-mot-de-passe">Faiblesse de vérification du mot de passe</h3>
 <p>Bruteforcer pour mieux rentrer.</p>
 <p>Votre arme : un fuzzer</p>
@@ -727,7 +747,11 @@ pre .xml .cdata {
 Est-il nécessaire de tester l&#39;ensemble des possibilités ?</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-9">
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
     <section class="slide-content"><h3 id="faiblesse-de-v-rification-du-mot-de-passe">Faiblesse de vérification du mot de passe</h3>
 <p>Analysons le code source</p>
 <pre><code>boolean compareCharArray(char a[8], String b) {
@@ -746,7 +770,7 @@ Est-il nécessaire de tester l&#39;ensemble des possibilités ?</p>
 <p>Ne tester que le dernier, le tour est joué :)</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-10">
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="faiblesse-de-v-rification-du-mot-de-passe">Faiblesse de vérification du mot de passe</h3>
 <p>Contre-mesures</p>
 <p>Ne pas valider un mot de passe si l&#39;ensemble des vérifications ne sont pas au vert</p>
@@ -757,13 +781,13 @@ Est-il nécessaire de tester l&#39;ensemble des possibilités ?</p>
 return result</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-11">
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="buffer-overflow-du-mot-de-passe">Buffer Overflow du mot de passe</h3>
 <p>Faire crasher peut bien renseigner</p>
 <p>Votre arme : un fuzzer</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-12">
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="buffer-overflow-du-mot-de-passe">Buffer Overflow du mot de passe</h3>
 <p>Sur arduino aucun controle de dépassement mémoire n&#39;est présent</p>
 <p>Principe</p>
@@ -775,7 +799,7 @@ return result</code></pre>
 </ul>
 </section>
   </div>
-  <div class="slide hidden  " id="slide-13">
+  <div class="slide hidden  " id="slide-18">
     <section class="slide-content"><h3 id="buffer-overflow-du-mot-de-passe">Buffer Overflow du mot de passe</h3>
 <p>Si la chaine de caractère est trop longue, la mémoire est affichée sur le port de debug</p>
 <div class="left">
@@ -787,11 +811,11 @@ Code source
 <img src="capture/capturDebug3.png"/>
 </div></section>
   </div>
-  <div class="slide hidden" id="slide-14">
+  <div class="slide hidden" id="slide-19">
     <section class="slide-content"><h1 id="demo">Demo</h1>
 </section>
   </div>
-  <div class="slide hidden" id="slide-15">
+  <div class="slide hidden" id="slide-20">
     <section class="slide-content"><h3 id="conclusion">Conclusion</h3>
 <p>Règle à retenir</p>
 <ul>
@@ -801,7 +825,7 @@ Code source
 </ul>
 </section>
   </div>
-  <div class="slide hidden author-slide" id="slide-16">
+  <div class="slide hidden author-slide" id="slide-21">
     <section class="slide-content"><div class="author">
   <h1 class="name">Vulcainreo (Arnaud Courty)</h1>
     <h3 class="twitter">
